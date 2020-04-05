@@ -4,7 +4,7 @@ const {
 } = require("../controllers/threadController");
 
 function info() {
-  return process.env.TEST;
+  return process.env.INFO;
 }
 function threads() {
   return allThreads;
