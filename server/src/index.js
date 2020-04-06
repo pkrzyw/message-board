@@ -2,14 +2,10 @@ const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const Query = require("./resolvers/Query");
+const resolvers = require("./graphql/resolvers");
 const { typeDefs } = require("./graphql/schema");
 
 const app = express();
-
-const resolvers = {
-  Query,
-};
 
 const server = new ApolloServer({
   typeDefs,
@@ -28,7 +24,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 db.once("open", () => {
-  console.log("🤖 Connected to MongoDB");
+  console.log(`🍃 Connected to MongoDB`);
   app.listen({ port: 4000 }, () =>
     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
   );
