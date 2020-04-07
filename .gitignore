@@ -2,3 +2,4 @@ server/node_modules/
 server/.env
 server/yarn.lock
 server/dist
+client/src/styles/styles.css
