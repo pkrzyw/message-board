@@ -19,6 +19,7 @@ const typeDefs = gql`
     replycount: Int
   }
   type Reply {
+    id: ID!
     text: String!
     created_on: String!
     delete_password: String!
