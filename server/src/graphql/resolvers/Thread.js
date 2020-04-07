@@ -1,11 +1,8 @@
-const {
-  allThreads,
-  threadsByBoard,
-} = require("../../controllers/threadController");
+const { allThreads, threadsByBoard } = require("../../controllers/thread");
 
 const ThreadQueries = {
   info: () => {
-    return process.env.INFO
+    return process.env.INFO;
   },
 
   threads: () => {
@@ -13,10 +10,10 @@ const ThreadQueries = {
   },
 
   boardThreads: (_, { board }) => {
-    return threadsByBoard(board)
-  }
-}
+    return threadsByBoard(board);
+  },
+};
 
 module.exports = {
-  ThreadQueries
+  ThreadQueries,
 };

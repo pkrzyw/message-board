@@ -16,6 +16,7 @@ const typeDefs = gql`
     bumped_on: String
     reported: String
     replies: [Reply!]!
+    replycount: Int
   }
   type Reply {
     text: String!
@@ -25,5 +26,5 @@ const typeDefs = gql`
   }
 `;
 module.exports = {
-    typeDefs,
+  typeDefs,
 };

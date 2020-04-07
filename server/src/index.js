@@ -25,7 +25,9 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 db.once("open", () => {
   console.log(`🍃 Connected to MongoDB`);
-  app.listen({ port: 4000 }, () =>
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  app.listen({ port: process.env.PORT }, () =>
+    console.log(
+      `🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`
+    )
   );
 });
