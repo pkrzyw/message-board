@@ -5,6 +5,16 @@ const typeDefs = gql`
     info: String!
     threads: [Thread!]!
     boardThreads(board: String!): [Thread!]!
+    allBoards: [Board!]!
+  }
+
+  type Mutation {
+    createBoard(name:String!): Board!
+  }
+
+  type Board {
+    id: ID!
+    name: String!
   }
 
   type Thread {
@@ -18,6 +28,7 @@ const typeDefs = gql`
     replies: [Reply!]!
     replycount: Int
   }
+
   type Reply {
     id: ID!
     text: String!

@@ -4,10 +4,10 @@ import Reply from './Reply'
 export default function Thread({ thread }) {
     const date = new Date(+thread.created_on).toLocaleDateString()
     return (
-        <div className="mb-4 px-4 pt-4 mx-0 bg-gray-300 rounded shadow">
+        <div className="mb-4 px-4 pt-4 mx-0 bg-gray-300 shadow">
             <div className="py-2  border-b-2 border-gray-600">
-                <span className="bg-gray-600 text-md font-normal shadow rounded py-1 px-4 text-gray-200">
-                    {thread.board}
+                <span className="bg-blue-800 text-md font-normal shadow py-1 px-4 text-gray-200">
+                    Board: {thread.board}
                 </span>
                 <span className="float-right text-md ">{date}</span>
             </div>

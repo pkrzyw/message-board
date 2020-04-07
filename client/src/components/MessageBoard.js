@@ -19,20 +19,20 @@ query {
 }
 `
 
-export default function MessageBoard() {
+export default function MessageBoard(props) {
 
-    const { loading, error, data } = useQuery(THREADS);
-    if (error) return <p>Error {error.message}</p>
-    return (
-        < main className="w-8/12 mx-auto text-gray-800 mt-4" >
-
-            {
-                loading
-                    ? "Fetching.."
-                    : data.threads.map(thread => (
-                        <Thread key={thread.id} thread={thread} />
-                    ))
-            }
-        </main >
-    )
+  const { loading, error, data } = useQuery(THREADS);
+  if (error) return <p>Error {error.message}</p>
+  return (
+    < main className="w-8/12 mx-auto text-gray-800 mt-4" >
+      <h2>{props.name}</h2>
+      {
+        loading
+          ? "Fetching.."
+          : data.threads.map(thread => (
+            <Thread key={thread.id} thread={thread} />
+          ))
+      }
+    </main >
+  )
 }

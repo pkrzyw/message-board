@@ -6,9 +6,7 @@ const cors = require("cors")
 const morgan = require("morgan")
 const resolvers = require("./graphql/resolvers");
 const { typeDefs } = require("./graphql/schema");
-
 const app = express();
-
 
 const server = new ApolloServer({
   typeDefs,
@@ -16,7 +14,7 @@ const server = new ApolloServer({
 });
 
 app.use(cors({ origin: "*" }))
-app.use(morgan('combined'))
+app.use(morgan('tiny'))
 server.applyMiddleware({ app, path: '/api/graphql' });
 
 mongoose.connect(process.env.MONGO_URI, {

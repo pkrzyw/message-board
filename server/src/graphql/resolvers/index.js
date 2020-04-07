@@ -1,8 +1,13 @@
-const { ThreadQueries } = require("./Thread")
+const { threadQueries } = require("./thread")
+const { boardQueries, boardMutations } = require("./board")
 
 const rootResolver = {
     Query: {
-        ...ThreadQueries
+        ...threadQueries,
+        ...boardQueries
+    },
+    Mutation: {
+        ...boardMutations
     }
 }
 
