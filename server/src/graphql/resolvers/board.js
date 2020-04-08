@@ -1,17 +1,17 @@
-const { allBoards, createBoard } = require("../../controllers/board")
+const { allBoards, createBoard } = require("../../controllers/board");
 
 const boardQueries = {
-    allBoards: () => {
-        return allBoards()
-    }
-}
+  allBoards: (parent, { name }, context) => {
+    return allBoards(name);
+  },
+};
 const boardMutations = {
-    createBoard: (parent, { name }, context) => {
-        return createBoard(name)
-    }
-}
+  createBoard: (parent, { name }, context) => {
+    return createBoard(name);
+  },
+};
 
 module.exports = {
-    boardQueries,
-    boardMutations
-}
+  boardQueries,
+  boardMutations,
+};

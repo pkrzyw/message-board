@@ -3,31 +3,30 @@ const Board = require("../models/board");
 const createBoard = async (boardName) => {
   try {
     const board = await Board.findOne({
-      name: boardName
-    })
-    if (board) throw new Error("Board already exists")
+      name: boardName,
+    });
+    if (board) throw new Error("Board already exists");
 
     const newBoard = new Board({
-      name: boardName
-    })
+      name: boardName,
+    });
     const savedBoard = await newBoard.save();
-    return savedBoard
-
+    return savedBoard;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
-const allBoards = async () => {
+const allBoards = async (name) => {
   try {
-    const boards = await Board.find()
-    return boards
+    const boards = await Board.find();
+    return boards;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 module.exports = {
   createBoard,
-  allBoards
+  allBoards,
 };
