@@ -2,8 +2,7 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
   content: [
     './src/**/*.js',
     './public/index.html',
-  ],
-  rejected: true
+  ]
 })
 
 module.exports = {
