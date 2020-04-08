@@ -1,4 +1,4 @@
-const Thread = require("../models/thread");
+const { Thread } = require("../models/thread");
 
 module.exports = {
   allThreads: Thread.find(),
