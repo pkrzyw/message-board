@@ -1,19 +1,21 @@
 import React from "react";
 import Header from "./Header";
 import MessageBoard from "./MessageBoard";
-import { Router } from '@reach/router'
 import Home from "./Home";
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Board from "./Board";
 
 function App() {
   return (
     <div>
-      <Header />
-      <Router>
-        <Home path="/" />
-        <MessageBoard path="/board/:name" />
-        <Board path="/board/new" />
-      </Router>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/board/:boardName" element={<MessageBoard />} />
+          <Route path="/board/new" element={<Board />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
