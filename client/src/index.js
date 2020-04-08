@@ -4,9 +4,27 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 
+
+import { ApolloProvider } from '@apollo/react-hooks'
+import { HttpLink } from "apollo-link-http";
+import { ApolloClient } from "apollo-client";
+import { InMemoryCache } from "apollo-boost";
+
+const cache = new InMemoryCache();
+const link = new HttpLink({
+  uri: 'http://localhost:4000/api/graphql'
+});
+
+const client = new ApolloClient({
+  cache,
+  link
+})
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

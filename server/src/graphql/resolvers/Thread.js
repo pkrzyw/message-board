@@ -1,6 +1,6 @@
 const { allThreads, threadsByBoard } = require("../../controllers/thread");
 
-const ThreadQueries = {
+const threadQueries = {
   info: () => {
     return process.env.INFO;
   },
@@ -15,5 +15,5 @@ const ThreadQueries = {
 };
 
 module.exports = {
-  ThreadQueries,
+  threadQueries,
 };
