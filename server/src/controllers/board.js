@@ -1,4 +1,13 @@
-const Board = require("../models/board");
+const { Board } = require("../models/board");
+
+const getBoards = async (name) => {
+  try {
+    const boards = await Board.find();
+    return boards;
+  } catch (error) {
+    throw error;
+  }
+};
 
 const createBoard = async (boardName) => {
   try {
@@ -17,16 +26,7 @@ const createBoard = async (boardName) => {
   }
 };
 
-const allBoards = async (name) => {
-  try {
-    const boards = await Board.find();
-    return boards;
-  } catch (error) {
-    throw error;
-  }
-};
-
 module.exports = {
   createBoard,
-  allBoards,
+  getBoards,
 };

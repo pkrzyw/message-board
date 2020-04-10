@@ -1,33 +1,29 @@
 const { Thread } = require("../models/thread");
 
+const allThreads = async (board) => {
+  try {
+    const where = board ? { board } : {}
+    const threads = await Thread.find(where)
+    return threads
+  } catch (error) {
+    throw error
+  }
+}
+
+const postThread = async (board, text, delete_password) => {
+  try {
+    const newThread = new Thread({
+      board,
+      text,
+      delete_password
+    })
+    const savedThread = await newThread.save()
+    return savedThread
+  } catch (error) {
+    throw error
+  }
+}
 module.exports = {
-  allThreads: Thread.find(),
-  threadsByBoard: (board) => {
-    return Thread.aggregate([
-      {
-        $project: {
-          _id: 1,
-          text: 1,
-          created_on: 1,
-          bumped_on: 1,
-          board: 1,
-          replies: {
-            $slice: ["$replies", -3],
-          },
-          replycount: {
-            $cond: {
-              if: { $isArray: "$replies" },
-              then: { $size: "$replies" },
-              else: "NA",
-            },
-          },
-        },
-      },
-    ])
-      .match({ board: board })
-      .project(" -replies.reported -replies.delete_password -board")
-      .sort("-bumped_on")
-      .limit(10)
-      .exec();
-  },
-};
+  allThreads,
+  postThread
+}

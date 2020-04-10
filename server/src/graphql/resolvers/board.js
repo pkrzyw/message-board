@@ -1,12 +1,15 @@
-const { allBoards, createBoard } = require("../../controllers/board");
+const { getBoards, createBoard } = require("../../controllers/board");
+const { allThreads } = require("../../controllers/thread")
 
 const boardQueries = {
-  allBoards: (parent, { name }, context) => {
-    return allBoards(name);
+  allBoards: async (_, { name }) => {
+    const boards = await getBoards(name);
+
+    return boards
   },
 };
 const boardMutations = {
-  createBoard: (parent, { name }, context) => {
+  createBoard: (_, { name }) => {
     return createBoard(name);
   },
 };

@@ -14,7 +14,7 @@ const server = new ApolloServer({
 });
 
 app.use(cors({ origin: "*" }))
-app.use(morgan('tiny'))
+// app.use(morgan('tiny'))
 server.applyMiddleware({ app, path: '/api/graphql' });
 
 mongoose.connect(process.env.MONGO_URI, {
