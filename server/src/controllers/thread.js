@@ -1,29 +1,34 @@
 const { Thread } = require("../models/thread");
+const { Board } = require("../models/board");
 
-const allThreads = async (board) => {
+const allThreads = async (boardId) => {
   try {
-    const where = board ? { board } : {}
-    const threads = await Thread.find(where)
-    return threads
+    const where = boardId ? { boardId } : {};
+    const threads = await Thread.find(where);
+    return threads;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
-const postThread = async (board, text, delete_password) => {
+const postThread = async (boardId, text, delete_password) => {
   try {
+    const board = await Board.findById(boardId);
+    if (!board) throw new Error("Board does not exists");
     const newThread = new Thread({
-      board,
+      boardId,
       text,
-      delete_password
-    })
-    const savedThread = await newThread.save()
-    return savedThread
+      delete_password,
+    });
+    const savedThread = await newThread.save();
+    board.threads.push(savedThread._id);
+    board.save();
+    return savedThread;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 module.exports = {
   allThreads,
-  postThread
-}
+  postThread,
+};

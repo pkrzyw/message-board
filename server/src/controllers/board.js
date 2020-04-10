@@ -2,7 +2,9 @@ const { Board } = require("../models/board");
 
 const getBoards = async (name) => {
   try {
-    const boards = await Board.find();
+    const where = {};
+    name ? (where.name = name) : null;
+    const boards = await Board.find(where).populate("threads");
     return boards;
   } catch (error) {
     throw error;
@@ -18,6 +20,7 @@ const createBoard = async (boardName) => {
 
     const newBoard = new Board({
       name: boardName,
+      threads: [],
     });
     const savedBoard = await newBoard.save();
     return savedBoard;

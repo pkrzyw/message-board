@@ -1,22 +1,17 @@
 const { postThread, allThreads } = require("../../controllers/thread");
 
 const threadQueries = {
-  allThreads: (_, { boardID }) => {
-    return allThreads(boardID)
-  }
+  allThreads: (_, { boardId }) => {
+    return allThreads(boardId);
+  },
 };
 
-function Thread(parent, args, context) {
-  return allThreads(parent.id)
-}
-
 const threadMutations = {
-  createThread: async (_, { board, text, delete_password }, context) => {
-    return postThread(board, text, delete_password)
-  }
-}
+  createThread: async (_, { boardId, text, delete_password }, context) => {
+    return postThread(boardId, text, delete_password);
+  },
+};
 module.exports = {
   threadQueries,
   threadMutations,
-  Thread
 };
