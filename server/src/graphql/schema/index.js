@@ -3,8 +3,9 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type Query {
     allBoards(name: String): [Board!]!
+    Board(boardId: ID!): Board!
     allThreads(boardId: ID): [Thread!]!
-    Thread(threadId: ID!): Thread
+    Thread(threadId: ID!): Thread!
   }
 
   type Mutation {
@@ -24,7 +25,7 @@ const typeDefs = gql`
 
   type Thread {
     id: ID!
-    boardId: ID!
+    board: Board!
     text: String!
     delete_password: String!
     created_on: String!

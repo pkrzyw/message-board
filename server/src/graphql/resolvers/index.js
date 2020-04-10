@@ -1,5 +1,5 @@
-const { threadQueries, threadMutations } = require("./thread");
-const { boardQueries, boardMutations } = require("./board");
+const { threadQueries, threadMutations, Thread } = require("./thread");
+const { Board, boardQueries, boardMutations } = require("./board");
 
 const rootResolver = {
   Query: {
@@ -10,6 +10,8 @@ const rootResolver = {
     ...boardMutations,
     ...threadMutations,
   },
+  Thread,
+  Board,
 };
 
 module.exports = rootResolver;

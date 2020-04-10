@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const threadSchema = new mongoose.Schema({
-  boardId: {
+  board: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: "Board",

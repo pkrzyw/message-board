@@ -6,6 +6,14 @@ const {
   updateThread,
 } = require("../../controllers/thread");
 
+const { boardById } = require("../../controllers/board");
+
+const Thread = {
+  board: async (parent) => {
+    return boardById(parent.board);
+  },
+};
+
 const threadQueries = {
   allThreads: (_, { boardId }) => {
     return allThreads(boardId);
@@ -26,7 +34,9 @@ const threadMutations = {
     return updateThread(threadId);
   },
 };
+
 module.exports = {
+  Thread,
   threadQueries,
   threadMutations,
 };

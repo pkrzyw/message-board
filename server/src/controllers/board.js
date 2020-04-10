@@ -4,12 +4,22 @@ const getBoards = async (name) => {
   try {
     const where = {};
     name ? (where.name = name) : null;
-    const boards = await Board.find(where).populate("threads");
+    const boards = await Board.find(where);
     return boards;
   } catch (error) {
     throw error;
   }
 };
+
+async function boardById(boardId) {
+  try {
+    const board = await Board.findById(boardId);
+    if (!board) throw new Error("Board does not exists");
+    return board;
+  } catch (error) {
+    throw error;
+  }
+}
 
 const createBoard = async (boardName) => {
   try {
@@ -30,6 +40,7 @@ const createBoard = async (boardName) => {
 };
 
 module.exports = {
+  boardById,
   createBoard,
   getBoards,
 };

@@ -1,16 +1,27 @@
-const { getBoards, createBoard } = require("../../controllers/board");
+const {
+  getBoards,
+  createBoard,
+  boardById,
+} = require("../../controllers/board");
 const { allThreads } = require("../../controllers/thread");
+
+const Board = {
+  threads: async (parent) => {
+    return allThreads(parent._id);
+  },
+};
 
 const boardQueries = {
   allBoards: async (_, { name }) => {
     const boards = await getBoards(name);
-    // boards.forEach(async (board, i) => {
-    //   let threads = await allThreads(board._id);
-    //   console.log(threads);
-    // });
     return boards;
   },
+  Board: async (_, { boardId }) => {
+    const board = await boardById(boardId);
+    return board;
+  },
 };
+
 const boardMutations = {
   createBoard: (_, { name }) => {
     return createBoard(name);
@@ -20,4 +31,5 @@ const boardMutations = {
 module.exports = {
   boardQueries,
   boardMutations,
+  Board,
 };

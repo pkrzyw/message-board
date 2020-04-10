@@ -4,7 +4,7 @@ const { Board } = require("../models/board");
 const allThreads = async (boardId, threadId) => {
   try {
     const where = {};
-    boardId ? (where.boardId = boardId) : null;
+    boardId ? (where.board = boardId) : null;
     threadId ? (where._id = threadId) : null;
     const threads = await Thread.find(where);
     console.log(threads);
@@ -28,7 +28,7 @@ const postThread = async (boardId, text, delete_password) => {
     const board = await Board.findById(boardId);
     if (!board) throw new Error("Board does not exists");
     const newThread = new Thread({
-      boardId,
+      board: boardId,
       text,
       delete_password,
     });
