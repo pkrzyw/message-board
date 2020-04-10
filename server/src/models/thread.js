@@ -43,7 +43,7 @@ const threadSchema = new mongoose.Schema({
       },
       bumped_on: {
         type: Date,
-        required: true,
+        default: new Date(),
       },
       reported: {
         type: Boolean,

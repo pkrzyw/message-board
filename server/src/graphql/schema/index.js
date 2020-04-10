@@ -4,11 +4,14 @@ const typeDefs = gql`
   type Query {
     allBoards(name: String): [Board!]!
     allThreads(boardId: ID): [Thread!]!
+    Thread(threadId: ID!): Thread
   }
 
   type Mutation {
     createBoard(name: String!): Board
-    createThread(boardId: ID!, text: String!, delete_password: String!): Thread
+    postThread(boardId: ID!, text: String!, delete_password: String!): Thread
+    postReply(threadId: ID!, text: String!, delete_password: String!): Thread
+    reportThread(threadId: ID!): Thread
   }
 
   type Board {
