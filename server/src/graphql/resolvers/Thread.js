@@ -4,6 +4,9 @@ const {
   postReply,
   threadById,
   updateThread,
+  deleteThread,
+  deleteReply,
+  reportReply,
 } = require("../../controllers/thread");
 
 const { boardById } = require("../../controllers/board");
@@ -31,7 +34,16 @@ const threadMutations = {
     return postReply(threadId, text, delete_password);
   },
   reportThread: (_, { threadId }) => {
-    return updateThread(threadId);
+    return updateThread(threadId, { reported: true });
+  },
+  deleteThread: (_, { threadId, delete_password }) => {
+    return deleteThread(threadId, delete_password);
+  },
+  deleteReply: (_, { threadId, replyId, delete_password }) => {
+    return deleteReply(threadId, replyId, delete_password);
+  },
+  reportReply: (_, { threadId, replyId }) => {
+    return reportReply(threadId, replyId);
   },
 };
 

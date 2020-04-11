@@ -13,6 +13,9 @@ const typeDefs = gql`
     postThread(boardId: ID!, text: String!, delete_password: String!): Thread
     postReply(threadId: ID!, text: String!, delete_password: String!): Thread
     reportThread(threadId: ID!): Thread
+    deleteThread(threadId: ID!, delete_password: String!): String!
+    reportReply(threadId: ID!, replyId: ID!): Thread
+    deleteReply(threadId: ID!, replyId: ID!, delete_password: String): Thread
   }
 
   type Board {
@@ -35,6 +38,7 @@ const typeDefs = gql`
   }
 
   type Reply {
+    id: ID!
     text: String!
     delete_password: String!
     created_on: String!

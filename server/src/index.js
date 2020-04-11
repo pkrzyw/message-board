@@ -2,8 +2,8 @@ const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const cors = require("cors")
-const morgan = require("morgan")
+const cors = require("cors");
+const morgan = require("morgan");
 const resolvers = require("./graphql/resolvers");
 const { typeDefs } = require("./graphql/schema");
 const app = express();
@@ -13,13 +13,14 @@ const server = new ApolloServer({
   resolvers,
 });
 
-app.use(cors({ origin: "*" }))
-// app.use(morgan('tiny'))
-server.applyMiddleware({ app, path: '/api/graphql' });
+app.use(cors({ origin: "*" }));
+// app.use(morgan("tiny"));
+server.applyMiddleware({ app, path: "/api/graphql" });
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 const db = mongoose.connection;
