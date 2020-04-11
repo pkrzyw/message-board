@@ -7,7 +7,6 @@ const allThreads = async (boardId, threadId) => {
     boardId ? (where.board = boardId) : null;
     threadId ? (where._id = threadId) : null;
     const threads = await Thread.find(where);
-    console.log(threads);
     return threads;
   } catch (error) {
     throw error;
