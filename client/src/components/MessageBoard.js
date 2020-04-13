@@ -6,9 +6,11 @@ import { useParams } from 'react-router';
 
 const THREADS = gql`
 query {
-  threads {
+  allThreads {
     id
-    board
+    board {
+      name
+    }
     text
     created_on
     replies {
@@ -20,9 +22,9 @@ query {
 }
 `
 
-export default function MessageBoard() {
-  const { boardName } = useParams()
-  const { loading, error, data } = useQuery(THREADS);
+export default function MessageBoard({ boardName }) {
+  const params = useParams()
+  const { loading, error, data } = useQuery(THREADS, { variables: { boardName } });
   if (error) return <p>Error {error.message}</p>
   return (
     < main className="w-8/12 mx-auto text-gray-800 mt-4" >
@@ -30,7 +32,7 @@ export default function MessageBoard() {
       {
         loading
           ? "Fetching.."
-          : data.threads.map(thread => (
+          : data.allThreads.map(thread => (
             <Thread key={thread.id} thread={thread} />
           ))
       }
