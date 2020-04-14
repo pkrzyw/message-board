@@ -2,11 +2,11 @@ import React from 'react'
 import { gql } from 'apollo-boost'
 import { useQuery } from '@apollo/react-hooks'
 import Thread from './Thread';
-import { useParams } from 'react-router';
+import { useParams, useLocation } from 'react-router';
 
 const THREADS = gql`
-query {
-  allThreads {
+query board($boardId: ID) {
+  allThreads(boardId: $boardId) {
     id
     board {
       name
@@ -22,9 +22,10 @@ query {
 }
 `
 
-export default function MessageBoard({ boardName }) {
-  const params = useParams()
-  const { loading, error, data } = useQuery(THREADS, { variables: { boardName } });
+export default function MessageBoard() {
+  const { boardName } = useParams()
+  const { state } = useLocation()
+  const { loading, error, data } = useQuery(THREADS, { variables: { boardId: state.boardId } });
   if (error) return <p>Error {error.message}</p>
   return (
     < main className="w-8/12 mx-auto text-gray-800 mt-4" >

@@ -29,7 +29,7 @@ export default function Header() {
                     ? "Fetching"
                     : data.allBoards.map(board => (
                         <div key={board.id} className="inline-block ml-4">
-                            <Link to={`board/${board.name}`}>
+                            <Link to={`board/${board.name}`} state={{ boardId: board.id }}>
                                 {board.name}
                             </Link>
                         </div>
