@@ -5,17 +5,14 @@ import MyTextInput from './MyTextInput'
 import Layout from './Layout'
 import { gql } from 'apollo-boost'
 import { useMutation } from '@apollo/react-hooks'
+// import { useNavigate } from 'react-router-dom'
+import { BOARDS } from './Header'
 
 const NEW_BOARD = gql`
     mutation createBoard($name: String!) {
         createBoard(name: $name) {
             id
             name
-            created_on
-            bumped_on
-            threads {
-                text
-            }
         }
     }
 `
@@ -25,8 +22,17 @@ const validationSchema = Yup.object({
 })
 
 export default function Board() {
-    const [createBoard, { loading, error, data }] = useMutation(NEW_BOARD)
-
+    const [createBoard] = useMutation(NEW_BOARD, {
+        update(cache, { data: { createBoard } }) {
+            const { allBoards } = cache.readQuery({ query: BOARDS })
+            cache.writeQuery({
+                query: BOARDS,
+                data: { allBoards: allBoards.push({ ...createBoard }) }
+            })
+            console.log(allBoards)
+        }
+    });
+    // let navigate = useNavigate()
     return (
         <Layout>
             <h2>New board</h2>
@@ -37,8 +43,8 @@ export default function Board() {
                     onSubmit={({ name }, { setSubmitting }) => {
                         createBoard({ variables: { name } })
                             .then(({ data }) => {
-
                                 console.log("submitted", JSON.stringify(data.createBoard, null, 2))
+                                // navigate(`/board/${name}`, { state: { boardId: data.createBoard.id } })
                             })
                             .catch((error) => {
                                 alert(error.message)

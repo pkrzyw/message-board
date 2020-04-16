@@ -9,6 +9,7 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import { HttpLink } from "apollo-link-http";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-boost";
+import { BrowserRouter } from "react-router-dom";
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
@@ -21,11 +22,11 @@ const client = new ApolloClient({
 })
 
 ReactDOM.render(
-  <React.StrictMode>
+  <BrowserRouter>
     <ApolloProvider client={client}>
       <App />
     </ApolloProvider>
-  </React.StrictMode>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
 

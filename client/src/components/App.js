@@ -2,20 +2,18 @@ import React from "react";
 import Header from "./Header";
 import MessageBoard from "./MessageBoard";
 import Home from "./Home";
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Board from "./Board";
+import { Routes, Route } from 'react-router-dom'
+import CreateBoard from "./CreateBoard";
 
 function App() {
   return (
     <div>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/board/:boardName" element={<MessageBoard />} />
-          <Route path="/board/new" element={<Board />} />
-        </Routes>
-      </BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/board/:boardName" element={<MessageBoard />} />
+        <Route path="/board/new" element={<CreateBoard />} />
+      </Routes>
     </div>
   );
 }
