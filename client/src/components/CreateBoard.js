@@ -6,7 +6,6 @@ import Layout from "./Layout";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import { BOARDS } from "./Header";
-// import { useNavigate } from "react-router-dom";
 
 const NEW_BOARD = gql`
   mutation createBoard($name: String!) {
@@ -29,7 +28,6 @@ export default function Board() {
       cache.writeQuery({ query: BOARDS, data: { allBoards: updatedBoards } });
     },
   });
-  //   let navigate = useNavigate();
   return (
     <Layout>
       <h2>New board</h2>
@@ -39,11 +37,7 @@ export default function Board() {
           validationSchema={validationSchema}
           onSubmit={({ name }, { setSubmitting }) => {
             createBoard({ variables: { name } })
-              .then(({ data }) => {
-                // navigate(`/board/${name}`, {
-                //   state: { boardId: data.createBoard.id },
-                // });
-              })
+              .then(({ data }) => {})
               .catch((error) => {
                 alert(error.message);
               })
