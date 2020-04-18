@@ -1,39 +1,107 @@
-import React from 'react'
+import React from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
-import MySelectField from './MySelectField';
+import MySelectField from "./MySelectField";
+import { BOARDS } from "../components/Header";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import MyTextInput from "./MyTextInput";
+import { gql } from "apollo-boost";
+import { THREADS } from "../pages/Board";
 
 const validationSchema = Yup.object({
-    board: Yup.string()
-        .max(50, "Error")
-        .required("required"),
-})
+  boardId: Yup.string().max(50, "Error").required("required"),
+  text: Yup.string().max(200, "Char limit 200").required("required"),
+  password: Yup.string().max(20, "Char limit 20").required("required"),
+});
 
-export default function ThreadForm() {
-    return (
-        <Formik
-            initialValues={{ board: "" }}
-            validationSchema={validationSchema}
-            onSubmit={({ board }, { setSubmitting }) => {
-                setSubmitting(false)
-                console.log("submitted")
-            }}
-        >
-            {({ isSubmitting }) => (
-                <Form>
-                    <MySelectField
-                        label="Board"
-                        name="board"
-                        type="select"
-                    />
-                    <button
-                        type='submit'
-                        disabled={isSubmitting}
-                    >
-                        Save
-                    </button>
-                </Form>
-            )}
-        </Formik>
-    )
+const POST_THREAD = gql`
+  mutation postThread($boardId: ID!, $text: String!, $password: String!) {
+    postThread(boardId: $boardId, text: $text, delete_password: $password) {
+      id
+      board {
+        name
+      }
+      text
+      created_on
+      replies {
+        id
+        text
+        created_on
+      }
+    }
+  }
+`;
+
+export default function ThreadForm({ parentBoard }) {
+  const { loading, error, data: boards } = useQuery(BOARDS);
+  const [postThread] = useMutation(POST_THREAD, {
+    update(cache, { data: { postThread } }) {
+      const { allThreads } = cache.readQuery({
+        query: THREADS,
+        variables: { boardId: parentBoard },
+      });
+      const updatedThreads = [...allThreads, { ...postThread }];
+      cache.writeQuery({
+        query: THREADS,
+        data: { allThreads: updatedThreads },
+        variables: { boardId: parentBoard },
+      });
+    },
+  });
+
+  if (loading) return <>Fetching...</>;
+  if (error) return <>Error while fetching</>;
+  return (
+    <Formik
+      initialValues={{ boardId: parentBoard, text: "", password: "" }}
+      validationSchema={validationSchema}
+      onSubmit={({ boardId, text, password }, { setSubmitting }) => {
+        postThread({
+          variables: {
+            boardId,
+            text,
+            password,
+          },
+        })
+          .then((data) => {})
+          .catch((err) => console.log(err))
+          .finally(() => {
+            setSubmitting(false);
+          });
+      }}
+    >
+      {({ isSubmitting, errors }) => (
+        <Form>
+          <MySelectField
+            label="Board"
+            name="boardId"
+            type="select"
+            options={boards.allBoards}
+            value={parentBoard}
+          />
+          <MyTextInput
+            label="New Thread"
+            name="text"
+            type="text"
+            placeholder="Thread text"
+          />
+          <MyTextInput
+            label="Delete Password"
+            name="password"
+            type="password"
+            placeholder=""
+            autoComplete="true"
+          />
+          <button
+            className={`bg-blue-600 rounded py-1 px-2 text-gray-100 ${isSubmitting}`}
+            type="submit"
+            disabled={isSubmitting}
+          >
+            Save
+          </button>
+          <pre>{JSON.stringify(errors, null, 2)}</pre>
+        </Form>
+      )}
+    </Formik>
+  );
 }

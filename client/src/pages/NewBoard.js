@@ -20,7 +20,7 @@ const validationSchema = Yup.object({
   name: Yup.string().max(50, "Character Limit: 50").required("Required"),
 });
 
-export default function Board() {
+export default function NewBoard() {
   const [createBoard] = useMutation(NEW_BOARD, {
     update(cache, { data: { createBoard } }) {
       const { allBoards } = cache.readQuery({ query: BOARDS });
@@ -37,7 +37,7 @@ export default function Board() {
           validationSchema={validationSchema}
           onSubmit={({ name }, { setSubmitting }) => {
             createBoard({ variables: { name } })
-              .then(({ data }) => { })
+              .then(({ data }) => {})
               .catch((error) => {
                 alert(error.message);
               })

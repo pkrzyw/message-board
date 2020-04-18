@@ -1,10 +1,10 @@
 import React from "react";
 import ThreadForm from "./ThreadForm";
 
-export default function NewThread() {
+export default function NewThread({ board }) {
   return (
     <div className="border-2 m-3 p-4">
-      <ThreadForm />
+      <ThreadForm parentBoard={board} />
     </div>
-  )
+  );
 }

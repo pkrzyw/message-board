@@ -6,8 +6,8 @@ import { useParams, useLocation } from "react-router";
 import Layout from "../layouts/Layout";
 import NewThread from "../components/NewThread";
 
-const THREADS = gql`
-  query board($boardId: ID) {
+export const THREADS = gql`
+  query($boardId: ID) {
     allThreads(boardId: $boardId) {
       id
       board {
@@ -24,7 +24,7 @@ const THREADS = gql`
   }
 `;
 
-export default function MessageBoard() {
+export default function Board() {
   const { boardName } = useParams();
   const { state } = useLocation();
   const { loading, error, data } = useQuery(THREADS, {
@@ -34,12 +34,12 @@ export default function MessageBoard() {
   return (
     <Layout>
       <h2>{boardName}</h2>
-      <NewThread />
+      <NewThread board={state.boardId} />
       {loading
         ? "Fetching.."
         : data.allThreads.map((thread) => (
-          <Thread key={thread.id} thread={thread} />
-        ))}
+            <Thread key={thread.id} thread={thread} />
+          ))}
     </Layout>
   );
 }
