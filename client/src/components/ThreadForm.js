@@ -48,14 +48,14 @@ export default function ThreadForm({ parentBoard }) {
       });
     },
   });
-
   if (loading) return <>Fetching...</>;
   if (error) return <>Error while fetching</>;
   return (
     <Formik
       initialValues={{ boardId: parentBoard, text: "", password: "" }}
       validationSchema={validationSchema}
-      onSubmit={({ boardId, text, password }, { setSubmitting }) => {
+      enableReinitialize
+      onSubmit={({ boardId, text, password }, actions) => {
         postThread({
           variables: {
             boardId,
@@ -66,7 +66,8 @@ export default function ThreadForm({ parentBoard }) {
           .then((data) => {})
           .catch((err) => console.log(err))
           .finally(() => {
-            setSubmitting(false);
+            actions.setSubmitting(false);
+            actions.resetForm();
           });
       }}
     >
@@ -77,7 +78,6 @@ export default function ThreadForm({ parentBoard }) {
             name="boardId"
             type="select"
             options={boards.allBoards}
-            value={parentBoard}
           />
           <MyTextInput
             label="New Thread"
