@@ -1,11 +1,11 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
-import MyTextInput from "./MyTextInput";
-import Layout from "./Layout";
+import MyTextInput from "../components/MyTextInput";
+import Layout from "../layouts/Layout";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
-import { BOARDS } from "./Header";
+import { BOARDS } from "../components/Header";
 
 const NEW_BOARD = gql`
   mutation createBoard($name: String!) {
@@ -37,7 +37,7 @@ export default function Board() {
           validationSchema={validationSchema}
           onSubmit={({ name }, { setSubmitting }) => {
             createBoard({ variables: { name } })
-              .then(({ data }) => {})
+              .then(({ data }) => { })
               .catch((error) => {
                 alert(error.message);
               })

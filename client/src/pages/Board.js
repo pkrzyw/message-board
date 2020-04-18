@@ -1,9 +1,10 @@
 import React from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
-import Thread from "./Thread";
+import Thread from "../components/Thread";
 import { useParams, useLocation } from "react-router";
-import Layout from "./Layout";
+import Layout from "../layouts/Layout";
+import NewThread from "../components/NewThread";
 
 const THREADS = gql`
   query board($boardId: ID) {
@@ -33,11 +34,12 @@ export default function MessageBoard() {
   return (
     <Layout>
       <h2>{boardName}</h2>
+      <NewThread />
       {loading
         ? "Fetching.."
         : data.allThreads.map((thread) => (
-            <Thread key={thread.id} thread={thread} />
-          ))}
+          <Thread key={thread.id} thread={thread} />
+        ))}
     </Layout>
   );
 }
