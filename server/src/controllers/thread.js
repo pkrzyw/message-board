@@ -42,9 +42,13 @@ const postThread = async (boardId, text, delete_password) => {
 async function postReply(threadId, text, delete_password) {
   try {
     const thread = await Thread.findById(threadId);
+    const created_on = new Date();
+    const bumped_on = new Date();
     const reply = {
       text,
       delete_password,
+      created_on,
+      bumped_on,
     };
     thread.replies.push(reply);
     thread.bumped_on = new Date();
