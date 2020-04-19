@@ -1,5 +1,5 @@
 import React from "react";
-import ThreadForm from "./ThreadForm";
+import ThreadForm from "../../Forms/ThreadForm";
 
 export default function NewThread({ board }) {
   return (

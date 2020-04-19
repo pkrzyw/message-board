@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "../components/Header";
-import Board from "./Board";
-import Home from "./Home";
-import { Routes, Route } from 'react-router-dom'
-import NewBoard from "./NewBoard";
+import Header from "../Header";
+import Board from "../Board";
+import Home from "../Home";
+import { Routes, Route } from "react-router-dom";
+import NewBoard from "../NewBoard";
 
 function App() {
   return (

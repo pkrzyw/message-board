@@ -1,6 +1,6 @@
 import React from "react";
 import Reply from "./Reply";
-import ReplyForm from "./ReplyForm";
+import ReplyForm from "../Forms/ReplyForm";
 
 export default function Thread({ thread }) {
   const date = new Date(+thread.created_on).toLocaleDateString();

@@ -1,10 +1,10 @@
 import React from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
-import Thread from "../components/Thread";
+import Thread from "../Thread";
 import { useParams, useLocation } from "react-router";
-import Layout from "../layouts/Layout";
-import NewThread from "../components/NewThread";
+import Layout from "../Layout";
+import NewThread from "../Thread/NewThread";
 
 export const THREADS = gql`
   query($boardId: ID) {

@@ -1,11 +1,10 @@
 import "./styles/styles.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./pages/App";
+import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 
-
-import { ApolloProvider } from '@apollo/react-hooks'
+import { ApolloProvider } from "@apollo/react-hooks";
 import { HttpLink } from "apollo-link-http";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-boost";
@@ -13,13 +12,13 @@ import { BrowserRouter } from "react-router-dom";
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
-  uri: 'http://localhost:4000/api/graphql'
+  uri: "http://localhost:4000/api/graphql",
 });
 
 const client = new ApolloClient({
   cache,
-  link
-})
+  link,
+});
 
 ReactDOM.render(
   <BrowserRouter>

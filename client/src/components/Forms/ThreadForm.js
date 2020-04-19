@@ -1,12 +1,12 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
-import MySelectField from "./MySelectField";
-import { BOARDS } from "../components/Header";
+import MySelectField from "./Fields/MySelectField";
+import { BOARDS } from "../Header";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import MyTextInput from "./MyTextInput";
+import MyTextInput from "./Fields/MyTextInput";
 import { gql } from "apollo-boost";
-import { THREADS } from "../pages/Board";
+import { THREADS } from "../Board";
 
 const validationSchema = Yup.object({
   boardId: Yup.string().max(50, "Error").required("required"),
