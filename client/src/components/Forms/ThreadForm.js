@@ -22,11 +22,15 @@ const POST_THREAD = gql`
         name
       }
       text
+      reported
       created_on
+      bumped_on
       replies {
         id
         text
+        reported
         created_on
+        bumped_on
       }
     }
   }
@@ -89,17 +93,16 @@ export default function ThreadForm({ parentBoard }) {
             label="Delete Password"
             name="password"
             type="password"
-            placeholder=""
+            placeholder="password"
             autoComplete="true"
           />
           <button
-            className={`bg-blue-600 rounded py-1 px-2 text-gray-100 ${isSubmitting}`}
+            className={`bg-blue-800 rounded px-1 text-gray-100 ${isSubmitting}`}
             type="submit"
             disabled={isSubmitting}
           >
             Save
           </button>
-          <pre>{JSON.stringify(errors, null, 2)}</pre>
         </Form>
       )}
     </Formik>

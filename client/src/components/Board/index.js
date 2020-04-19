@@ -14,11 +14,15 @@ export const THREADS = gql`
         name
       }
       text
+      reported
       created_on
+      bumped_on
       replies {
         id
         text
+        reported
         created_on
+        bumped_on
       }
     }
   }
@@ -33,7 +37,9 @@ export default function Board() {
   if (error) return <p>Error {error.message}</p>;
   return (
     <Layout>
-      <h2>{boardName}</h2>
+      <h2 className="text-center text-lg text-blue-800 font-bold">
+        {boardName}
+      </h2>
       <NewThread board={state.boardId} />
       {loading
         ? "Fetching.."

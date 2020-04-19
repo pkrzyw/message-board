@@ -13,11 +13,15 @@ const POST_REPLY = gql`
         name
       }
       text
+      reported
       created_on
+      bumped_on
       replies {
         id
         text
+        reported
         created_on
+        bumped_on
       }
     }
   }
@@ -47,11 +51,17 @@ export default function ReplyForm({ threadId }) {
     >
       {({ isSubmitting }) => (
         <Form>
-          <MyTextInput label="Reply" name="text" type="text" placeholder="" />
+          <MyTextInput
+            label="Reply"
+            name="text"
+            type="text"
+            placeholder="post a reply..."
+          />
           <MyTextInput
             label="Password"
             name="password"
             type="password"
+            placeholder="password"
             autoComplete="true"
           />
           <button className={``} type="submit" disabled={isSubmitting}>
