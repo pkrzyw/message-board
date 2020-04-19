@@ -1,7 +1,9 @@
 import React from "react";
+import * as dateService from "../../../services/Format/Date";
 
 export default function Reply({ reply }) {
-  const date = new Date(+reply.created_on).toLocaleDateString();
+  const date = dateService.formatDateTime(new Date(+reply.created_on));
+
   return (
     <div className="py-1">
       <p className="italic ">
