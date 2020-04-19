@@ -64,7 +64,11 @@ export default function ReplyForm({ threadId }) {
             placeholder="password"
             autoComplete="true"
           />
-          <button className={``} type="submit" disabled={isSubmitting}>
+          <button
+            className="shadow rounded px-1"
+            type="submit"
+            disabled={isSubmitting}
+          >
             Save
           </button>
         </Form>

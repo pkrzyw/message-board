@@ -9,7 +9,7 @@ export default function MySelectField({ label, ...props }) {
       <select
         {...field}
         value={value}
-        className={`appearance-none transition duration-500 ease-in-out ${
+        className={`shadow-inner transition duration-500 ease-in-out ${
           meta.touched && meta.error ? "bg-red-200" : "bg-blue-100"
         } w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none`}
       >

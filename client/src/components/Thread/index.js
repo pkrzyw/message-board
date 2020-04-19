@@ -5,7 +5,7 @@ import * as dateService from "../../services/Format/Date";
 
 export default function Thread({ thread }) {
   const date = dateService.formatDateTime(new Date(+thread.created_on));
-
+  const reported = thread.reported === "true" ? true : false;
   return (
     <div className="mb-3 px-1 pt-1 pb-2 shadow">
       <div className="py-1">
@@ -14,10 +14,10 @@ export default function Thread({ thread }) {
           <span className="font-bold text-gray-600">
             [{thread.board.name}]{" "}
           </span>
-          <span className="italic">
-            {thread.text}
-            {thread.reported ? " reported" : ""}
-          </span>
+          {reported ? (
+            <span className="text-red-600 font-thin ">reported</span>
+          ) : null}{" "}
+          <span className="italic">{thread.text}</span>
         </p>
       </div>
       {thread.replies.length > 0 ? (
